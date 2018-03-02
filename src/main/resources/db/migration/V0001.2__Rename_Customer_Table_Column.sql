@@ -1,0 +1,1 @@
+ALTER TABLE mail RENAME COLUMN customer_id TO mail_id;

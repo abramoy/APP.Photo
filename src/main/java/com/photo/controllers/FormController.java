@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.photo.helpers.ImageBuilder;
 import com.photo.helpers.MailBuilder;
 import com.photo.model.Mail;
 
@@ -20,10 +21,14 @@ public class FormController {
 	@Autowired
 	MailBuilder mailBuilder;
 	
+	@Autowired
+	ImageBuilder imgBuilder;
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String helloWorld(Model model) {
 		LOG.info("Entering FormController");
 		model.addAttribute("mail", new Mail());
+		imgBuilder.getGalleryImages();
 		return "index";
 		
 	}
@@ -32,7 +37,7 @@ public class FormController {
 	public String update(@ModelAttribute Mail mail) {
 		LOG.info("Entering form submit");
 		mailBuilder.saveMailDetails(mail);
-		return "index";
+		return "redirect:success";
 	}
 
 }

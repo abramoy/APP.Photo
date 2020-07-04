@@ -20,7 +20,7 @@ public class ImageBuilderImpl implements ImageBuilder {
         "gif", "png", "bmp" , "jpg"
     };
     
-    	@Override
+    @Override
 	public void getGalleryImages() {
 		System.out.println("Hello " + directory);
 		final File dir = new File(directory);

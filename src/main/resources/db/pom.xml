@@ -1,0 +1,53 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.photoapp</groupId>
+	<artifactId>PhotoApp-Flyway</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Photo App - FLyway Region Rebuild</name>
+	<properties>
+		<flyway.version>4.2.0</flyway.version>
+		<postgres.driver.version>9.4.1212.jre7</postgres.driver.version>
+		<flyway.cleanDisabled>true</flyway.cleanDisabled>
+		<flyway.locations>filesystem:migration</flyway.locations>
+	</properties>
+	<profiles>
+		<profile>
+			<id>SYS</id>
+			<properties>
+				<flyway.user>paadmin</flyway.user>
+				<flyway.schemas>photoform</flyway.schemas>
+				<flyway.url>jdbc:postgresql://localhost:5432/photodev</flyway.url>
+				<flyway.cleanDisabled>false</flyway.cleanDisabled>
+			</properties>
+		</profile>
+	</profiles>
+	<build>
+		<resources>
+			<resource>
+				<directory>migration</directory>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.flywaydb</groupId>
+				<artifactId>flyway-maven-plugin</artifactId>
+				<version>${flyway.version}</version>
+				<configuration>
+					<url>${flyway.url}</url>
+					<user>${flyway.user}</user>
+					<password>${flyway.password}</password>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.postgresql</groupId>
+						<artifactId>postgresql</artifactId>
+						<version>${postgres.driver.version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>
